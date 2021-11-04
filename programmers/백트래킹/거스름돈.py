@@ -1,6 +1,5 @@
 def solution(n, money):
     money.sort(reverse=True)
-
     def backtracking(idx, leftMoney):
         if idx == len(money)-1:
             if leftMoney % money[idx] == 0:
@@ -13,5 +12,14 @@ def solution(n, money):
         return ret
 
     return backtracking(0, n)
-a=solution(5, [1,2,5])
+
+def solution2(n, money):
+    dp = [0 for i in range(n+1)]
+    dp[0] = 1
+    for curMoney in money:
+        for j in range(0, n+1):
+            if j >= curMoney:
+                dp[j] += dp[j - curMoney]
+    return dp[-1]
+a=solution2(5, [1,2,5])
 print(a)
